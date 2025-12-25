@@ -3,8 +3,8 @@
 #include <cmath>
 
 struct Vector {
-    double x;
-    double y;
+    float x;
+    float y;
     Vector(const double x,const double y) : x(x), y(y) {}
 
     bool operator==(const Vector& v) const noexcept {

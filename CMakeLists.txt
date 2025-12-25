@@ -23,6 +23,10 @@ add_executable(Particles main.cpp
         src/state/simulation_state.hpp
         src/state/menu_state.hpp
         src/GUI/button.hpp
-        src/GUI/text_handler.hpp)
+        src/GUI/text_handler.hpp
+        src/engine.cpp
+        src/state/simulation_state.cpp
+        src/state/menu_state.cpp
+        src/GUI/button.cpp)
 target_compile_features(Particles PRIVATE cxx_std_17)
 target_link_libraries(Particles PRIVATE SFML::Graphics)

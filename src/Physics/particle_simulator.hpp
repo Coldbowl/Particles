@@ -5,6 +5,8 @@
 #include "image_analyzer.hpp"
 #include "Particle.hpp"
 
+#include <SFML/Graphics/CircleShape.hpp>
+
 using std::vector, std::sqrt;
 
 class ParticleSimulator {
