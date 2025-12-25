@@ -1,14 +1,14 @@
 #pragma once
 #include "SFML/Graphics/Font.hpp"
-#include "SFML/System/Exception.hpp"
 
 #include <string>
-#include <utility>
 
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/Text.hpp"
 
 using std::string;
+
+namespace sf { class RenderWindow; }
 
 class TextHandler {
     sf::Font font;
@@ -17,32 +17,7 @@ class TextHandler {
     sf::RenderWindow& window;
 
 public:
-    explicit TextHandler(const string& str, const float object_x, const float object_y, const float object_width, const float object_height, sf::RenderWindow& window, const sf::Color color = sf::Color::Black, const int font_size = 30)
-    : str{str}
-    , text{font, str}
-    , window{window}
-    {
-        if (!font.openFromFile("src/GUI/Jersey10-Regular.ttf")) {
+    explicit TextHandler(string& str, float object_x, float object_y, float object_width, float object_height, sf::RenderWindow& window, sf::Color color, int font_size);
 
-        }
-        text.setCharacterSize(font_size);
-
-        const sf::FloatRect bounds = text.getLocalBounds();
-
-        text.setOrigin({
-            bounds.position.x + bounds.size.x / 2.f,
-            bounds.position.y + bounds.size.y / 2.f
-        });
-
-        text.setPosition({
-            object_x + object_width  / 2.f,
-            object_y + object_height / 2.f
-        });
-
-        text.setFillColor(color);
-    }
-
-    void render_text() const {
-        window.draw(text);
-    }
+    void render_text() const;
 };

@@ -26,7 +26,7 @@ class Button {
     void (*on_click)();
 
 public:
-    explicit Button(const float button_x, const float button_y, const float button_width, const float button_height, string text, sf::RenderWindow& window, void(*on_click)(), const sf::Color color);
+    explicit Button(float button_x, float button_y, float button_width, float button_height, string text, sf::RenderWindow& window, void(*on_click)(), sf::Color color);
 
     void draw() const;
 

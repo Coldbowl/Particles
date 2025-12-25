@@ -19,7 +19,6 @@ inline std::uniform_real_distribution<double> velDist(-2.f, 2.f);
 
 inline const double k = 5.0; // attraction strength
 inline const double c = 2.0; // damping (friction)
-inline const double G = 200.0;   // strength of attraction
 
 struct Particle {
     Vector position;

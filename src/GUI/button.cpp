@@ -8,7 +8,7 @@
 
 using std::string;
 
-Button::Button(const float button_x, const float button_y, const float button_width, const float button_height, string text, sf::RenderWindow& window, void(*on_click)(), const sf::Color color = sf::Color::White)
+Button::Button(const float button_x, const float button_y, const float button_width, const float button_height, const string text, sf::RenderWindow& window, void(*on_click)(), const sf::Color color = sf::Color::White)
 : button_x{button_x}
 , button_y{button_y}
 , button_width{button_width}
