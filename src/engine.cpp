@@ -5,7 +5,7 @@
 #include "config.hpp"
 
 Engine::Engine()
-    : window(sf::VideoMode({SCREEN_WIDTH, SCREEN_HEIGHT}),"Particle simulation | FPS: 0")
+    : window(sf::VideoMode({SCREEN_WIDTH, SCREEN_HEIGHT}),"Particle simulation")
 {}
 
 Engine::~Engine() {

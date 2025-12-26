@@ -6,6 +6,7 @@
 
 #include "Vector.hpp"
 #include "../config.hpp"
+#include "SFML/Graphics/Color.hpp"
 
 using std::cout, std::clamp;
 

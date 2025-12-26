@@ -17,7 +17,7 @@ class TextHandler {
     sf::RenderWindow& window;
 
 public:
-    explicit TextHandler(string& str, float object_x, float object_y, float object_width, float object_height, sf::RenderWindow& window, sf::Color color, int font_size);
+    explicit TextHandler(const string& str, float object_x, float object_y, float object_width, float object_height, sf::RenderWindow& window, sf::Color color = sf::Color::Black, int font_size = 30);
 
     void render_text() const;
 };

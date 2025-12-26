@@ -2,8 +2,8 @@
 
 using std::string;
 
-TextHandler::TextHandler(string& str, const float object_x, const float object_y, const float object_width, const float object_height, sf::RenderWindow& window, sf::Color color = sf::Color::Black, const int font_size = 30)
-: str{str}
+TextHandler::TextHandler(const string& str, const float object_x, const float object_y, const float object_width, const float object_height, sf::RenderWindow& window, const sf::Color color, const int font_size)
+: str{std::move(str)}
 , text{font, str}
 , window{window}
 {

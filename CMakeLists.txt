@@ -13,7 +13,6 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(Particles main.cpp
-        src/Physics/particle_simulator.hpp
         src/Physics/Particle.hpp
         src/Physics/Vector.hpp
         src/config.hpp
@@ -28,6 +27,7 @@ add_executable(Particles main.cpp
         src/state/simulation_state.cpp
         src/state/menu_state.cpp
         src/GUI/button.cpp
-        src/GUI/text_handler.cpp)
+        src/GUI/text_handler.cpp
+        src/Physics/image_analyzer.cpp)
 target_compile_features(Particles PRIVATE cxx_std_17)
 target_link_libraries(Particles PRIVATE SFML::Graphics)

@@ -1,12 +1,13 @@
-#include "menu_state.hpp"
-#include "../config.hpp"
-
 #include <array>
 #include <memory>
 #include <iostream>
 
 #include "state.hpp"
 #include "../GUI/button.hpp"
+#include "menu_state.hpp"
+#include "../config.hpp"
+#include "../engine.hpp"
+#include "simulation_state.hpp"
 
 MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
     : State(engine)
@@ -29,9 +30,9 @@ MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
         SCREEN_HEIGHT / 10.0,
         "Simulate",
         window,
-        []() {
+        [this]() {
             std::cout << "You clicked Simulate!\n";
-            // engine->change_state(new SimulationState(engine));
+            this->engine->change_state(new SimulationState(this->engine));
         }
     );
     buttons[1] = std::make_unique<Button>(
@@ -49,10 +50,10 @@ MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
         SCREEN_HEIGHT * 5.0 / 6.0,
         SCREEN_WIDTH * 4.0 / 5.0,
         SCREEN_HEIGHT / 10.0,
-        "Preferences",
+        "Quit",
         window,
-        []() {
-            std::cout << "You clicked Preferences\n";
+        [this]() {
+            this->engine->quit();
         }
     );
 }
@@ -94,7 +95,6 @@ void MenuState::handle_events()  {
     {
         if (!pressed) {
             if (hovered_button != nullptr) hovered_button->clicked();
-            else std::cout << "You ain't clicking nothing, cuh\n";
             pressed = true;
         }
     } else {

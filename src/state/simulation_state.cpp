@@ -5,6 +5,8 @@
 
 #include <SFML/Graphics.hpp>
 
+int frameCount = 0;
+sf::Clock fpsClock;
 
 SimulationState::SimulationState(Engine* engine, const int count)
     : State(engine)
@@ -30,4 +32,48 @@ void SimulationState::render(sf::RenderWindow& window)  {
         shape.setPosition({p.position.x, p.position.y});
         window.draw(shape);
     }
+    frameCount++;
+    if (fpsClock.getElapsedTime().asSeconds() >= 1.f) {
+        window.setTitle("Particle simulation | FPS: " + std::to_string(frameCount));
+        frameCount = 0;
+        fpsClock.restart();
+    }
 }
+
+void SimulationState::enter() {
+
+}
+
+void SimulationState::exit() {
+
+}
+
+void SimulationState::handle_events() {
+
+}
+
+// ParticleSimulator particle_simulator(1000);
+//
+// sf::RenderWindow window(
+//     sf::VideoMode({SCREEN_WIDTH, SCREEN_HEIGHT}),
+//     "Particle simulation | FPS: 0");
+//
+// sf::Clock fpsClock;
+// int frameCount = 0;
+//
+// while (window.isOpen()) {
+//     accumulator += frameClock.restart().asSeconds();
+//
+//
+//
+//     window.clear();
+//     particle_simulator.render(window);
+//     window.display();
+//
+//     while (accumulator >= dt) {
+//         particle_simulator.update(dt);
+//         accumulator -= dt;
+//     }
+//
+
+// }

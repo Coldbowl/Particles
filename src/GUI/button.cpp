@@ -1,6 +1,8 @@
 #include "button.hpp"
 
 #include <string>
+#include <utility>
+#include <iostream>
 
 #include "text_handler.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
@@ -8,7 +10,7 @@
 
 using std::string;
 
-Button::Button(const float button_x, const float button_y, const float button_width, const float button_height, const string text, sf::RenderWindow& window, void(*on_click)(), const sf::Color color = sf::Color::White)
+Button::Button(const float button_x, const float button_y, const float button_width, const float button_height, string text, sf::RenderWindow& window, std::function<void()> on_click, const sf::Color color)
 : button_x{button_x}
 , button_y{button_y}
 , button_width{button_width}
@@ -17,7 +19,7 @@ Button::Button(const float button_x, const float button_y, const float button_wi
 , window{window}
 , color{color}
 , text_handler(this->text, button_x, button_y, button_width, button_height, window)
-, on_click{on_click}
+, on_click{std::move(on_click)}
 {
     button.setPosition({button_x, button_y});
     button.setSize({button_width, button_height});
@@ -29,9 +31,13 @@ void Button::draw() const {
     text_handler.render_text();
 }
 
-bool Button::is_hovering(const sf::Vector2i& mouse_position) const {
-    // 662, 375
-    return mouse_position.x > button_x && mouse_position.x < button_x + button_width && mouse_position.y > button_y  && mouse_position.y < button_y + button_height;
+bool Button::is_hovering(const sf::Vector2i& mouse_position) {
+    if (!(mouse_position.x > button_x && mouse_position.x < button_x + button_width && mouse_position.y > button_y  && mouse_position.y < button_y + button_height)) {
+        button.setFillColor(color);
+        return false;
+    }
+    button.setFillColor(hover_color);
+    return true;
 }
 
 void Button::clicked() const {
