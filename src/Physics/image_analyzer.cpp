@@ -3,16 +3,20 @@
 #include <cstdint>
 
 #include "SFML/Graphics/Color.hpp"
+#include "../config.hpp"
 
-ImageAnalyzer::ImageAnalyzer(const int count) : count{count} {
+ImageAnalyzer::ImageAnalyzer(const int denominator)
+: denominator{denominator}
+{
+    width = SCREEN_WIDTH / denominator;
+    height = SCREEN_HEIGHT / denominator;
+    count = width * height;
     particles.reserve(count);
 }
 
 void ImageAnalyzer::load_particle_positions() {
-    const int n = static_cast<int>(std::sqrt(count));
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
             const Vector pos {50 + i * 10.f, 50 + j * 10.f};
 
             const auto r = static_cast<uint8_t>(255);

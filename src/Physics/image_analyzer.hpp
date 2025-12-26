@@ -6,9 +6,12 @@
 class ImageAnalyzer {
     std::vector<Particle> particles;
     int count;
+    int denominator;
+    float width;
+    float height;
 
 public:
-    explicit ImageAnalyzer(int count);
+    explicit ImageAnalyzer(int denominator);
 
     void load_particle_positions();
 

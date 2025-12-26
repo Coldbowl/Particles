@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 #include "engine.hpp"
 #include "state/menu_state.hpp"
@@ -22,10 +23,15 @@ void Engine::change_state(State* s) {
 void Engine::run() {
     change_state(new MenuState(this, window));
     while (running) {
+        accumulator += frame_clock.restart().asSeconds();
         handle_events();
-        window.clear();
         current_state->handle_events();
-        current_state->update(dt);
+
+         while (accumulator >= dt) {
+             current_state->update(dt);
+             accumulator -= dt;
+         }
+        window.clear();
         current_state->render(window);
         window.display();
     }
@@ -49,3 +55,29 @@ void Engine::handle_events() {
         }
     }
 }
+
+// ParticleSimulator particle_simulator(1000);
+//
+// sf::RenderWindow window(
+//     sf::VideoMode({SCREEN_WIDTH, SCREEN_HEIGHT}),
+//     "Particle simulation | FPS: 0");
+//
+// sf::Clock fpsClock;
+// int frameCount = 0;
+//
+// while (window.isOpen()) {
+//     accumulator += frameClock.restart().asSeconds();
+//
+//
+//
+//     window.clear();
+//     particle_simulator.render(window);
+//     window.display();
+//
+//     while (accumulator >= dt) {
+//         particle_simulator.update(dt);
+//         accumulator -= dt;
+//     }
+//
+
+// }

@@ -13,6 +13,7 @@ class Engine {
     int frameCount = 0;
     float accumulator = 0.f;
     sf::RenderWindow window;
+    sf::Clock frame_clock;
 
     State* current_state = nullptr;
 

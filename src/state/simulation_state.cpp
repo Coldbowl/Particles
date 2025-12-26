@@ -51,29 +51,3 @@ void SimulationState::exit() {
 void SimulationState::handle_events() {
 
 }
-
-// ParticleSimulator particle_simulator(1000);
-//
-// sf::RenderWindow window(
-//     sf::VideoMode({SCREEN_WIDTH, SCREEN_HEIGHT}),
-//     "Particle simulation | FPS: 0");
-//
-// sf::Clock fpsClock;
-// int frameCount = 0;
-//
-// while (window.isOpen()) {
-//     accumulator += frameClock.restart().asSeconds();
-//
-//
-//
-//     window.clear();
-//     particle_simulator.render(window);
-//     window.display();
-//
-//     while (accumulator >= dt) {
-//         particle_simulator.update(dt);
-//         accumulator -= dt;
-//     }
-//
-
-// }

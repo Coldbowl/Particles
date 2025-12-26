@@ -11,7 +11,7 @@ class SimulationState final : public State {
     std::vector <Particle> particles;
 
 public:
-    explicit SimulationState(Engine* engine, int count = 1000);
+    explicit SimulationState(Engine* engine, int count = 20);
 
     void update(double dt) override;
 
