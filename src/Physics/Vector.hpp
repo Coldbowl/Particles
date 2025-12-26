@@ -1,10 +1,12 @@
 #pragma once
 
 #include <cmath>
+#include <iostream>
 
 struct Vector {
     float x;
     float y;
+    Vector() = default;
     Vector(const double x,const double y) : x(x), y(y) {}
 
     bool operator==(const Vector& v) const noexcept {
@@ -35,35 +37,39 @@ struct Vector {
         return *this;
     }
 
-    Vector operator*(const double f) const noexcept {
+    Vector operator*(const float f) const noexcept {
         return {this->x * f, this->y * f};
     }
 
-    Vector& operator*=(const double f) noexcept {
+    Vector& operator*=(const float f) noexcept {
         this->x *= f;
         this->y *= f;
         return *this;
     }
 
-    Vector operator/(const double d) const noexcept {
-        return {this->x / d, this->y * d};
+    Vector operator/(const float f) const noexcept {
+        return {this->x / f, this->y * f};
     }
 
-    [[nodiscard]] double length() const {
+    [[nodiscard]] float length() const {
         return std::sqrt(this->x * this->x + this->y * this->y);
     }
 
     [[nodiscard]] Vector normalized() const noexcept {
-        double l = length();
+        const float l = length();
         return {this->x / l, this->y / l};
     }
 };
-
 inline std::ostream& operator<<(std::ostream& os, const Vector& v) {
     os << "(" << v.x << ", " << v.y << ")";
     return os;
 }
 
-inline Vector operator*(const double d, const Vector& v) noexcept {
-    return {v.x * d, v.y * d};
+
+inline Vector operator*(const float f, const Vector& v) noexcept {
+    return {v.x * f, v.y * f};
+}
+
+inline float dot(const Vector a, const Vector b) {
+    return a.x * b.x + a.y * b.y;
 }

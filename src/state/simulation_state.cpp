@@ -1,37 +1,35 @@
 #include "simulation_state.hpp"
 #include "state.hpp"
 #include "../Physics/image_analyzer.hpp"
-#include "../Physics/Particle.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <array>
 
 int frameCount = 0;
 sf::Clock fpsClock;
 
-SimulationState::SimulationState(Engine* engine, const int count)
+SimulationState::SimulationState(Engine* engine)
     : State(engine)
+    , particles([]{
+        ImageAnalyzer<count> analyzer;
+        analyzer.load_particle_positions();
+        return analyzer.get_particles();
+    }()) // direct initialization
+    , particle_struct{particles}
 {
-    if (count < 0) {
-        throw std::invalid_argument("Bad argument!");
-    }
-    auto analyzer = ImageAnalyzer(count);
+    ImageAnalyzer<count> analyzer;
     analyzer.load_particle_positions();
-    particles = analyzer.get_particles();
+    particles = std::move(analyzer.get_particles());
+
+    std::cout << "Simulating with " << count << " particles\n";
 }
 
-void SimulationState::update(const double dt)  {
-    for (Particle& p : particles) {
-        p.update(dt);
-    }
+void SimulationState::update(const float dt)  {
+    particle_struct.update(dt);
 }
 
 void SimulationState::render(sf::RenderWindow& window)  {
-    for (const Particle& p : particles) {
-        sf::CircleShape shape(p.radius);
-        shape.setFillColor(p.color);
-        shape.setPosition({p.position.x, p.position.y});
-        window.draw(shape);
-    }
+    particle_struct.render(window);
     frameCount++;
     if (fpsClock.getElapsedTime().asSeconds() >= 1.f) {
         window.setTitle("Particle simulation | FPS: " + std::to_string(frameCount));

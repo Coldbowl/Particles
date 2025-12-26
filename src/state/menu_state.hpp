@@ -21,7 +21,7 @@ class MenuState final : public State {
 public:
     explicit MenuState(Engine* engine, sf::RenderWindow& window);
 
-    void update(double dt) override;
+    void update(float dt) override;
 
     void render(sf::RenderWindow& window) override;
 

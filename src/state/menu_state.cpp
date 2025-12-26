@@ -58,7 +58,7 @@ MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
     );
 }
 
-void MenuState::update(double dt) {
+void MenuState::update(float dt) {
     position = sf::Mouse::getPosition(window);
 }
 
