@@ -4,7 +4,6 @@
 #include <random>
 #include <algorithm>
 #include <execution>
-#include <ranges>
 #include <cmath>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -12,6 +11,7 @@
 
 #include "../config.hpp"
 #include "Vector.hpp"
+#include "image_analyzer.hpp"
 
 using std::clamp;
 
@@ -48,6 +48,7 @@ struct Particles {
                 static_cast<uint8_t>(127 + 127 * std::sin(0.05f * i + 4.2f))
             };
         }
+        color = ImageAnalyzer<Count>::analyze_image();
     }
 
     void update(const float dt) {

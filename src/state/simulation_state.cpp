@@ -1,27 +1,31 @@
 #include "simulation_state.hpp"
+
 #include "state.hpp"
 #include "../Physics/image_analyzer.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <array>
+#include <SFML/Window/Keyboard.hpp>
+
+#include "menu_state.hpp"
+#include "../engine.hpp"
 
 int frameCount = 0;
 sf::Clock fpsClock;
 
-SimulationState::SimulationState(Engine* engine)
+SimulationState::SimulationState(Engine* engine, sf::RenderWindow& window)
     : State(engine)
     , particles([]{
-        ImageAnalyzer<count> analyzer;
+        ImageAnalyzer<count> analyzer{};
         analyzer.load_particle_positions();
         return analyzer.get_particles();
     }()) // direct initialization
     , particle_struct{particles}
+    , window{window}
 {
-    ImageAnalyzer<count> analyzer;
+    ImageAnalyzer<count> analyzer{};
     analyzer.load_particle_positions();
-    particles = std::move(analyzer.get_particles());
-
-    std::cout << "Simulating with " << count << " particles\n";
+    particles = analyzer.get_particles();
 }
 
 void SimulationState::update(const float dt)  {
@@ -47,5 +51,8 @@ void SimulationState::exit() {
 }
 
 void SimulationState::handle_events() {
-
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) {
+        engine->change_state(new MenuState(this->engine, window));
+    }
 }
+

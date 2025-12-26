@@ -31,8 +31,7 @@ MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
         "Simulate",
         window,
         [this]() {
-            std::cout << "You clicked Simulate!\n";
-            this->engine->change_state(new SimulationState(this->engine));
+            this->engine->change_state(new SimulationState(this->engine, this->window));
         }
     );
     buttons[1] = std::make_unique<Button>(
