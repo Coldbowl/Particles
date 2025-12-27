@@ -1,6 +1,7 @@
 #include <array>
 #include <memory>
 #include <iostream>
+#include <filesystem>
 
 #include "state.hpp"
 #include "../GUI/button.hpp"
@@ -8,6 +9,7 @@
 #include "../config.hpp"
 #include "../engine.hpp"
 #include "simulation_state.hpp"
+#include "../External/tinyfiledialogs.h"
 
 MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
     : State(engine)
@@ -41,7 +43,37 @@ MenuState::MenuState(Engine* engine, sf::RenderWindow& window)
         SCREEN_HEIGHT / 10.0,
     "Upload Image",
         window, []() {
-            std::cout << "You clicked Upload Image\n";
+            const char* filters[] = { "*.png", "*.jpg", "*.jpeg", "*.bmp" };
+
+            const char* selectedPath = tinyfd_openFileDialog(
+                "Select an image",
+                "",
+                4,
+                filters,
+                "Image files",
+                0
+            );
+
+            if (!selectedPath) {
+                std::cout << "User cancelled\n";
+                return;
+            }
+
+            std::cout << "Selected: " << selectedPath << "\n";
+
+            namespace fs = std::filesystem;
+
+            fs::path dest = "src/Image/particles_image.png";
+
+            // Ensure directory exists
+            fs::create_directories(dest.parent_path());
+
+            // Windows-safe overwrite
+            if (fs::exists(dest)) {
+                fs::remove(dest);
+            }
+
+            fs::copy_file(selectedPath, dest);
         }
     );
     buttons[2] = std::make_unique<Button>(

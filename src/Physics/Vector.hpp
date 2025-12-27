@@ -7,7 +7,7 @@ struct Vector {
     float x;
     float y;
     Vector() = default;
-    Vector(const double x,const double y) : x(x), y(y) {}
+    Vector(const float x, const float y) : x(x), y(y) {}
 
     bool operator==(const Vector& v) const noexcept {
         return v.x == this->x && v.y == this->y;

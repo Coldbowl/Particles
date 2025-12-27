@@ -35,7 +35,7 @@ public:
         std::array<sf::Color, Count> colors;
 
         sf::Image image;
-        if (!image.loadFromFile("src/Image/Victoria.jpg")) {
+        if (!image.loadFromFile("src/Image/particles_image.png")) {
             throw std::runtime_error("Failed to load image");
         }
 

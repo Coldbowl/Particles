@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(Particles LANGUAGES CXX)
+project(Particles LANGUAGES C CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
@@ -23,6 +23,7 @@ add_executable(Particles main.cpp
         src/GUI/button.cpp
         src/GUI/text_handler.cpp
         src/Physics/Particles.hpp
+        src/External/tinyfiledialogs.c
 )
 
 include(FetchContent)
@@ -44,4 +45,8 @@ target_link_libraries(Particles
         PRIVATE
         SFML::Graphics
         OpenMP::OpenMP_CXX
+)
+
+target_include_directories(Particles PRIVATE
+    src/External/
 )
